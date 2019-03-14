@@ -21,15 +21,16 @@
 ## 使用方法：
 ```
 // Global init
-signal_try_catch_init();
+signal_catch_init();
 
 // Three labels must be the same, can be empty.
 // Nested try-catch pairs must use different label names.
 signal_try(label) {
-// Add your code need try
+    // Add your code need try
 }
 signal_catch(label) {
-// Add your code to process exceptions, or do nothing.
+    // Add your code to process exceptions, or do nothing.
+    siginfo_t* info = signal_info();
 }
 signal_end(label)
 ```
