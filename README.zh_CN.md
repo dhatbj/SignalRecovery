@@ -20,25 +20,24 @@
 
 ## 使用方法：
 ```
-// Global init
-signal_catch_init();
+    // Global init
+    signal_try_catch_init();
 
-// Three labels must be the same, can be empty.
-// Nested try-catch pairs must use different label names.
-signal_try(label) {
-    // Add your code need try
-}
-signal_catch(label) {
-    // Add your code to process exceptions, or do nothing.
-    siginfo_t* info = signal_info();
-}
-signal_end(label)
+    // Three labels must be the same, can be empty.
+    // Nested try-catch pairs must use different label names.
+    signal_try(label) {
+        // Add your code need try
+    }
+    signal_catch(label) {
+        // Add your code to process exceptions, or do nothing.
+    }
+    signal_end(label)
 ```
 ## 注意事项：
 * 同一作用域里不同的 try-catch 块（包括嵌套使用的 try-catch 块），label 名不能相同。
 * 一定不要忘了全局初始化。全局初始化不分线程，一个进程初始化一次即可。
 * 如果需要处理更多的 signal 类型，可以在 signal_handler_init() 函数里修改代码添加。
-* 在 XCode 中运行程序，XCode会停在发生异常的代码处无法继续执行。这是因为 XCode 调试器可以比程序代码更优先处理异常，并且不让程序继续执行。
+* 在 XCode、CLion 等 IDE 中调试运行 example，IDE 会停在发生异常的代码处无法继续执行。这是因为调试器可以比应用程序更优先处理异常，并且阻止程序继续执行。正确的做法是单独运行 example，不调试。
 
 ## 实现原理：
 程序崩溃的过程是这样的：操作系统检测到内存非法访问、非法指令等运行时错误，然后发出一个对应的 POSIX signal，如果程序没有处理，就调用默认处理函数，一般是弹出一个提示对话框，然后结束进程。应用程序可以先一步处理 signal, 但如果没有事先做一些准备工作，崩溃已无法挽回了。要防止程序崩溃，需要事先注册 signal handler，然后在 signal_try() 阶段用 sigsetjmp 保存一份完整的寄存器状态，当 signal 产生时，使用 siglongjmp 恢复之前保存的寄存器状态，程序就可以继续执行了。
