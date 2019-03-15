@@ -30,7 +30,7 @@ This library enables programs to recover from operating system exceptions such a
     }
     signal_end(label)
 ```
-## Notes:
+## Instructions:
 * Different try-catch blocks (including nested try-catch blocks) in the same scope can not have the same label name.
 * Do not forget global initialization. Global initialization only needs to be run once. 
 * If you need to deal with more signal types, you can modify the code in the signal_handler_init() function.

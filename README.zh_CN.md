@@ -34,7 +34,7 @@
     }
     signal_end(label)
 ```
-## 注意事项：
+## 使用说明：
 * 同一作用域里不同的 try-catch 块（包括嵌套使用的 try-catch 块），label 名不能相同。
 * 一定不要忘了全局初始化。全局初始化不分线程，一个进程初始化一次即可。
 * 如果需要处理更多的 signal 类型，可以在 signal_handler_init() 函数里修改代码添加。
