@@ -30,6 +30,7 @@
     }
     signal_catch(label) {
         // Add your code to process exceptions, or do nothing.
+        siginfo_t* info = signal_info();
     }
     signal_end(label)
 ```

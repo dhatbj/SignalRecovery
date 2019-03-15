@@ -15,19 +15,21 @@ This library enables programs to recover from operating system exceptions such a
 * Multilingual Support (OC/C/C++)
 * Multi-Platform Support (iOS/macOS/Linux)
 ## Method of use:
-` ` ` `
-// Global init
-Signal_try_catch_init();
-// Three labels must be the same, can be empty.
-// Nested try-catch pairs must use different label names.
-Signal_try (label){
-// Add your code need try
-}
-Signal_catch (label){
-// Add your code to process exceptions, or do nothing.
-}
-Signal_end (label)
-` ` ` `
+```
+    // Global init
+    signal_try_catch_init();
+
+    // Three labels must be the same, can be empty.
+    // Nested try-catch pairs must use different label names.
+    signal_try(label) {
+        // Add your code need try
+    }
+    signal_catch(label) {
+        // Add your code to process exceptions, or do nothing.
+        siginfo_t* info = signal_info();
+    }
+    signal_end(label)
+```
 ## Notes:
 * Different try-catch blocks (including nested try-catch blocks) in the same scope can not have the same label name.
 * Do not forget global initialization. Global initialization only needs to be run once. 
