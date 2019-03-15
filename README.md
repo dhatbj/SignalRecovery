@@ -36,7 +36,7 @@ Signal_end (label)
 ## Realization principle:
 The process of program crash is as follows: the operating system detects runtime errors such as illegal memory access or illegal instructions, and then sends out a corresponding POSIX signal. If the program is not processed, it calls the default processing function, usually pops up a prompt dialog box, and ends the process. The application can process the signal first, but without some preparation, the crash is irreversible. To prevent program crash, we need to register signal handler beforehand, and then save a complete register state with sigsetjmp in signal_try() phase. When signal is generated, we can use siglongjmp to restore the register state saved before then the program can continue to execute.
 ## References:
-* [https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/sigsetjmp.3.html] (https://developer.apple.com/library/archive/documentation/System/Conceptual/Manges_iPhoneOS/man3/sigsetjmp.3.html)
-* [https://linux.die.net/man/3/sigsetjmp] (https://linux.die.net/man/3/sigsetjmp)
-* [https://linux.die.net/man/3/longjmp] (https://linux.die.net/man/3/longjmp)
-* [https://lacking rhoticity.blogspot.com/2013/08/handling-crashes-on-mac-os-x.html] (https://lacking rhoticity.blogspot.com/2013/08/handling-crashes-on-mac-os-x.html)
+* [https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/sigsetjmp.3.html](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/sigsetjmp.3.html)
+* [https://linux.die.net/man/3/sigsetjmp](https://linux.die.net/man/3/sigsetjmp)
+* [https://linux.die.net/man/3/longjmp](https://linux.die.net/man/3/longjmp)
+* [https://lackingrhoticity.blogspot.com/2013/08/handling-crashes-on-mac-os-x.html](https://lackingrhoticity.blogspot.com/2013/08/handling-crashes-on-mac-os-x.html)
